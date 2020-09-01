@@ -20,9 +20,5 @@ jobs:
           logout: false
       - name: pull Kólga Docker image
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
-  build:
-    runs-on: ubuntu-18.04
-    container: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
-    steps:
       - name: test action
         uses: ./.github/actions/test
