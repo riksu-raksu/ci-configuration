@@ -18,7 +18,30 @@ To use the example configuration file, you need to create a Variable Group named
 | CONTAINER_REGISTRY_USER     | [username for logging in CONTAINER_REGISTRY] |
 | KUBERNETES_CONFIG           | [base64 encoded YAML]                        |
 
-KUBERNETES_CONFIG needs to be base64 encoded kubeconfig YAML configuration.
+KUBERNETES_CONFIG needs to be base64 encoded YAML [kubeconfig configuration](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/). That configuration given in this variable will be passed to kubectl. The configuration should point to the kubecluster where the application is being deployed, and the user defined in the configuration must have admin access to the namespace where the application is being deployed.
+
+An example kubeconfig YAML template, with specific values stripped:
+
+```yaml
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://${cluster_hostname}
+    certificate-authority-data: ${base64_certificate}
+  name: default-cluster
+contexts:
+- context:
+    cluster: default-cluster
+    user: default-user
+  name: default-context
+current-context: default-context
+kind: Config
+preferences: {}
+users:
+- name: ${username}
+  user:
+    token: ${JWT}
+```
 
 ## **Service connections**
 
