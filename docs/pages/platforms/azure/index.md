@@ -6,11 +6,9 @@ The CI-pipeline has preliminary support for running in [Azure Pipelines](https:/
 
 Instead of extending configuration files provided by Kólga, you will need to provide a whole Azure Pipelines YAML file yourself. This document includes a working example file at the end.
 
-There are two Docker images devops/azure-kolga-demo:master and 
-
 ## **Configuration variables**
 
-To use the example configuration file, you need to create a Variable Group named 'kolga-vars' in the Azure Pipelines Library, and provide values for these variables:
+To use the example configuration file, you need to create a Variable Group named `kolga-vars` in the Azure Pipelines Library, and provide values for these variables:
 
 | variable name               | example value                                |
 |-----------------------------|----------------------------------------------|
@@ -24,7 +22,7 @@ KUBERNETES_CONFIG needs to be base64 encoded kubeconfig YAML configuration.
 
 ## **Service connections**
 
-To use the example configuration file as is, your Azure Pipelines project needs to have a Docker service connection defined by the name 'docker_anders_fi'. It needs to point to a docker registry where two Kólga docker images are available, by names devops/azure-kolga-demo:master and devops/azure-kolga-demo:master-development.
+To use the example configuration file as is, your Azure Pipelines project needs to have a Docker service connection defined by the name `docker_anders_fi`. It needs to point to a docker registry where the Kólga docker image is available, by name devops/azure-kolga-demo:master-development.
 
 ## **Example YAML file**
 
