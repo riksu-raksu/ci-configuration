@@ -11,6 +11,8 @@ jobs:
   login:
     runs-on: ubuntu-18.04
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
       - name: login to Docker container registry
         uses: docker/login-action@v1
         with:
