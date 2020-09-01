@@ -8,7 +8,7 @@ env:
   CONTAINER_REGISTRY_USER: azure-registry-user
 
 jobs:
-  login:
+  build:
     runs-on: ubuntu-18.04
     steps:
       - name: checkout
