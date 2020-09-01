@@ -22,8 +22,7 @@ jobs:
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
   build:
     runs-on: ubuntu-18.04
+    container: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
     steps:
       - name: build
-        uses: docker
-        image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
-        args: [ "bash", "-c", "echo TESTING && pwd && ls -la" ]
+        run: export
