@@ -16,8 +16,8 @@ jobs:
       - name: login to Docker container registry
         uses: docker/login-action@v1
         with:
-          registry: $CONTAINER_REGISTRY
-          username: $CONTAINER_REGISTRY_USER
+          registry: docker.anders.fi
+          username: azure-registry-user
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
           logout: false
   build:
