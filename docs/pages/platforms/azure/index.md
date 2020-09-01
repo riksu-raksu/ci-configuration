@@ -1,18 +1,79 @@
 # Azure Pipelines
 
-The CI-pipeline has preliminary support for running in [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/). This document points out some differences from how configuring [GitLab's CI/CD pipeline](../gitlab/index.md) works,
+The CI-pipeline has preliminary support for running in [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/). This document points out some differences from how configuring [GitLab's CI/CD pipeline](../gitlab/index.md) works.
 
-## Acquiring Kólga
+## Defining a YAML configuration file
+
+Instead of extending configuration files provided by Kólga, you will need to provide a whole Azure Pipelines YAML file yourself. This document includes a working example file at the end.
 
 There are two Docker images devops/azure-kolga-demo:master and 
 
 ## **Configuration variables**
 
-To run the CI-pipeline in Azure Pipelines, you need to provide values for these variables:
+To use the example configuration file, you need to create a Variable Group named 'kolga-vars' in the Azure Pipelines Library, and provide values for these variables:
 
-- ENVIRONMENT_SLUG
-- K8S_NAMESPACE
-- ENVIRONMENT_URL
+| variable name               | example value                                |
+|-----------------------------|----------------------------------------------|
+| CONTAINER_REGISTRY          | docker.anders.fi                             |
+| CONTAINER_REGISTRY_PASSWORD | [password for logging in CONTAINER_REGISTRY] |
+| CONTAINER_REGISTRY_REPO     | docker.anders.fi/devops/azure-kolga-demo     |
+| CONTAINER_REGISTRY_USER     | [username for logging in CONTAINER_REGISTRY] |
+| KUBERNETES_CONFIG           | [base64 encoded YAML]                        |
 
-Check their meaning in the **STAGES** docs.
+KUBERNETES_CONFIG needs to be base64 encoded kubeconfig YAML configuration.
 
+## **Service connections**
+
+To use the example configuration file as is, your Azure Pipelines project needs to have a Docker service connection defined by the name 'docker_anders_fi'. It needs to point to a docker registry where two Kólga docker images are available, by names devops/azure-kolga-demo:master and devops/azure-kolga-demo:master-development.
+
+## **Example YAML file**
+
+```yaml
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu 18.04'
+
+variables:
+- group: kolga-vars
+
+resources:
+  containers:
+  - container: Kolga
+    image: devops/azure-kolga-demo:master-development
+    endpoint: docker_anders_fi
+
+name:
+stages:
+- stage: Build
+  displayName: Build the app
+  jobs:
+    - job: build
+      container: Kolga
+      displayName: Build
+      steps:
+        - bash: git clone --single-branch --branch azure-pipelines-dev https://github.com/andersinno/kolga.git $(Build.SourcesDirectory)/kolga
+          name: clone_kolga
+        - bash: ./kolga/devops create_images
+          name: build_app
+- stage: Review
+  displayName: Deploy review environment
+  jobs:
+    - job: review
+      variables:
+        BASE_DOMAIN: "andersalumni.fi"
+        ENVIRONMENT_SLUG: "hello-world"
+        K8S_NAMESPACE: "hello-world"
+        ENVIRONMENT_URL: https://$(ENVIRONMENT_SLUG).$(BASE_DOMAIN)
+        SERVICE_PORT: 5858
+      container: Kolga
+      displayName: Deploy
+      steps:
+        - bash: ls -la && git clone --single-branch --branch azure-pipelines-dev https://github.com/andersinno/kolga.git $(Build.SourcesDirectory)/kolga
+          name: clone_kolga
+        - bash: ls -la && echo $KUBERNETES_CONFIG | base64 -d > .kubeconfig
+          name: create_kubeconfig
+        - bash: export KUBECONFIG="$(pwd)/.kubeconfig" && export && pwd && ls -la && source ./kolga/utils/shell_utils.sh && set_docker_host && ./kolga/devops deploy_application --track review
+          name: deploy
+```
