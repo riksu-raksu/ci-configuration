@@ -22,9 +22,6 @@ jobs:
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
   build:
     name: build
-    runs-on: ubuntu-18.04
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: Hello world
-        run: export && echo "Hello, world!"
+    using: docker
+    image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
+    args: [ "bash", "-c", "echo TESTING && pwd && ls -la" ]
