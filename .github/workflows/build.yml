@@ -24,5 +24,5 @@ jobs:
     runs-on: ubuntu-18.04
     container: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
     steps:
-      - name: build
-        run: export
+      - name: test action
+        uses: ./.github/actions/test
