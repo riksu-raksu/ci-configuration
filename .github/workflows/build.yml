@@ -24,6 +24,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: build
-        using: docker
+        uses: docker
         image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
         args: [ "bash", "-c", "echo TESTING && pwd && ls -la" ]
