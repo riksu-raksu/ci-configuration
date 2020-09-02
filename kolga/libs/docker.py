@@ -84,6 +84,8 @@ class Docker:
             registry,
         ]
 
+        print(f"REGISTRY IS {registry} USERNAME IS {username} PASSWORD LENGTH IS {len(password)}")
+
         result = run_os_command(login_command)
         if result.return_code:
             logger.std(result, raise_exception=True)
