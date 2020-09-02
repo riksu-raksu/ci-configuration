@@ -10,7 +10,7 @@ env:
   DOCKER_IMAGE_NAME: kolga.github.riku
 
 jobs:
-  commit build:
+  on_push:
     runs-on: ubuntu-18.04
     steps:
       - name: checkout
