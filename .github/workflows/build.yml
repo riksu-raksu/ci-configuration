@@ -26,4 +26,6 @@ jobs:
       - name: build Kólga
         uses: ./.github/actions/build
       - name: execute Kólga tests
-        run: make test
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make test
