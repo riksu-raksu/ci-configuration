@@ -3,5 +3,3 @@ runs:
   using: docker
   image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
   args: [ "bash", "-c", "./devops test_setup && make test" ]
-  env:
-    BUILT_DOCKER_TEST_IMAGE: $(./devops docker_test_image)
