@@ -1,0 +1,5 @@
+name: build Kólga
+runs:
+  using: docker
+  image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
+  args: [ "bash", "-c", "./devops create_images" ]
