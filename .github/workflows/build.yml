@@ -11,6 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
+      - name: view environment variables
+        run: export
       - name: checkout
         uses: actions/checkout@v2
       - name: login to Docker container registry
@@ -19,7 +21,6 @@ jobs:
           registry: docker.anders.fi
           username: azure-registry-user
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-          logout: false
       - name: pull Kólga Docker image
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
       - name: test action
