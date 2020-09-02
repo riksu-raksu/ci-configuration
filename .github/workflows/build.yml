@@ -22,6 +22,7 @@ jobs:
           registry: docker.anders.fi
           username: azure-registry-user
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+          logout: false
       - name: pull Kólga Docker image
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
       - name: test action
