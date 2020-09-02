@@ -25,5 +25,7 @@ jobs:
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
       - name: build Kólga
         uses: ./.github/actions/build
+      - name: check variable value
+        run: echo $BUILT_DOCKER_TEST_IMAGE
       - name: execute Kólga tests
         uses: ./.github/actions/test
