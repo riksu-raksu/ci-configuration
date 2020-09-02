@@ -6,14 +6,13 @@ env:
   CONTAINER_REGISTRY: docker.anders.fi
   CONTAINER_REGISTRY_REPO: docker.anders.fi/devops/azure-kolga-demo
   CONTAINER_REGISTRY_USER: azure-registry-user
+  CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
   DOCKER_IMAGE_NAME: kolga.github.riku
 
 jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-      - name: view environment variables
-        run: export
       - name: checkout
         uses: actions/checkout@v2
       - name: login to Docker container registry
