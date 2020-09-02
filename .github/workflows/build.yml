@@ -26,4 +26,4 @@ jobs:
       - name: build Kólga
         uses: ./.github/actions/build
       - name: execute Kólga tests
-        uses: ./.github/actions/test
+        run: make test
