@@ -25,10 +25,26 @@ jobs:
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
       - name: build Kólga
         uses: ./.github/actions/build
-      - name: all the tests
+      - name: style tests
         uses: ./.github/actions/test
         with:
-          command: 'make style-tests ; make typing-tests ; make package-tests ; make docs'
+          command: 'make style-tests'
+        if: ${{ always() }}
+      - name: typing tests
+        uses: ./.github/actions/test
+        with:
+          command: 'make typing-tests'
+        if: ${{ always() }}
+      - name: package tests
+        uses: ./.github/actions/test
+        with:
+          command: 'make package-tests'
+        if: ${{ always() }}
+      - name: doc tests
+        uses: ./.github/actions/test
+        with:
+          command: 'make docs'
+        if: ${{ always() }}
       - name: other tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
