@@ -137,7 +137,7 @@ class Helm:
             "30",
             install_arg,
             "--namespace",
-            "-v 9",
+            "--v 9",
             f"{namespace}",
         ]
 
