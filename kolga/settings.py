@@ -188,7 +188,11 @@ class Settings:
         self.devops_root_path = Path(sys.argv[0]).resolve().parent
 
         self.active_ci: Optional[Any] = None
-        self.supported_cis: List[Any] = [GitLabMapper(), AzurePipelinesMapper(), GitHubActionsMapper()]
+        self.supported_cis: List[Any] = [
+            GitLabMapper(),
+            AzurePipelinesMapper(),
+            GitHubActionsMapper()
+        ]
         self._set_ci_environment()
         setattr(self, PROJECT_NAME_VAR, self._get_project_name())
 
@@ -364,7 +368,7 @@ class GitHubActionsMapper:
 
     @property
     def is_active(self) -> bool:
-        return env.bool("GITHUB_ACTIONS", False)
+        return env.bool("GITHUB_ACTIONS", False)  # type: ignore
 
     @property
     def VALID_FILE_SECRET_PATH_PREFIXES(self) -> List[str]:
