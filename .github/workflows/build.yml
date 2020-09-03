@@ -40,7 +40,7 @@ jobs:
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make package-tests
         if: ${{ always() }}
-        - name: doc tests
+      - name: doc tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make docs
