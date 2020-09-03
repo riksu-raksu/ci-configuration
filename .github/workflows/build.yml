@@ -29,19 +29,24 @@ jobs:
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make style-tests
+        if: ${{ always() }}
       - name: typing tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make typing-tests
+        if: ${{ always() }}
       - name: package tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make package-tests
-      - name: doc tests
+        if: ${{ always() }}
+        - name: doc tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make docs
+        if: ${{ always() }}
       - name: other tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make test
+        if: ${{ always() }}
