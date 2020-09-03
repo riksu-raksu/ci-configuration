@@ -29,3 +29,19 @@ jobs:
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make test
+      - name: style tests
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make style-tests
+      - name: typing tests
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make typing-tests
+      - name: package tests
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make package-tests
+      - name: doc tests
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make docs

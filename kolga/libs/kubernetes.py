@@ -420,8 +420,6 @@ class Kubernetes:
     def deploy_service(self, service: "Service", namespace: str, track: str) -> None:
         deploy_name = get_deploy_name(track=track, postfix=service.name)
 
-        print(f"SERVICE IS {service.__dict__}")
-
         self.helm.upgrade_chart(
             chart=service.chart,
             chart_path=service.chart_path,
