@@ -25,10 +25,6 @@ jobs:
         run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
       - name: build Kólga
         uses: ./.github/actions/build
-      - name: execute Kólga tests
-        run: |
-          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
-          make test
       - name: style tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
@@ -45,3 +41,7 @@ jobs:
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make docs
+      - name: other tests
+        run: |
+          sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
+          make test
