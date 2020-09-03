@@ -1,0 +1,9 @@
+name: execute Kólga tests
+runs:
+  using: docker
+  image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
+  args: [ "bash", "-c", "${{ inputs.text }}" ]
+inputs:
+  command:
+    description: 'command to execute inside the Kólga container, in a bash shell'
+    default: ''
