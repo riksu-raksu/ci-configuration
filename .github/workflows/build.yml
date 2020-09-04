@@ -28,7 +28,7 @@ jobs:
       - name: why does this not work?
         run: |
           env > ./.docker-env
-          docker run --env-file .docker-env docker.anders.fi/devops/azure-kolga-demo:master-development /bin/bash -c "./devops create_images"
+          docker run --env-file .docker-env docker.anders.fi/devops/azure-kolga-demo:master-development /bin/bash -c "export && ./devops create_images"
       - name: style tests
         run: docker run $BUILT_DOCKER_TEST_IMAGE /bin/bash -c "make style-tests"
         if: ${{ always() }}
