@@ -19,10 +19,10 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ${{ env.CONTAINER_REGISTRY }}
-          username: azure-registry-user
+          username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       - name: pull Kólga Docker image
-        run: docker pull $CONTAINER_REGISTRY/devops/azure-kolga-demo:master-development
+        run: docker pull $CONTAINER_REGISTRY_REPO:master-development
       - name: build Kólga
         uses: ./.github/actions/build
       - name: style tests
