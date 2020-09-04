@@ -37,6 +37,7 @@ jobs:
         uses: ./.github/actions/build
       - name: the real build
         run: |
+          echo ${{steps.build.outcome}}
           env > ./.docker-env
           docker run --env-file .docker-env $HOST_IMAGE /bin/bash -c "export && ./devops create_images"
           export BUILT_IMAGE=$(./devops docker_test_image)
