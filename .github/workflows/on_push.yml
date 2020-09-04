@@ -33,7 +33,7 @@ jobs:
         id: build
         run: |
           env > ./.docker-env
-          /usr/bin/docker run --env-file .docker-env --rm -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/ci-configuration/ci-configuration":"/github/workspace" docker.anders.fi/devops/azure-kolga-demo:master-development  'bash' '-c' './devops create_images && export BUILT_IMAGE=$(./devops docker_test_image) && echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE"'
+          /usr/bin/docker run --env-file .docker-env --workdir /github/workspace --rm -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/ci-configuration/ci-configuration":"/github/workspace" $BUILD_HOST_IMAGE 'bash' '-c' './devops create_images && export BUILT_IMAGE=$(./devops docker_test_image) && echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE"'
 #      - name: use Kólga to build Kólga
 #        id: build
 #        run: |
