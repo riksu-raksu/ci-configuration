@@ -1,5 +1,0 @@
-name: execute Kólga tests
-runs:
-  using: docker
-  image: docker://docker.anders.fi/devops/azure-kolga-demo:master-development
-  args: [ "bash", "-c", "make style-tests ; make typing-tests ; make package-tests ; make docs" ]
