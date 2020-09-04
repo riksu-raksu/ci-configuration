@@ -26,7 +26,9 @@ jobs:
       - name: build Kólga
         uses: ./.github/actions/build
       - name: style tests
-        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make style-tests"
+        run: |
+          docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "cat ./devops"
+          docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make style-tests"
         if: ${{ always() }}
       - name: typing tests
         run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make typing-tests"
