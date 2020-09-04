@@ -1,9 +1,10 @@
 name: execute Kólga tests
 runs:
   using: docker
-  image: docker://${{ env.CONTAINER_REGISTRY_REPO }}:master-development
+  image: docker://${{ inputs.container_registry_repo }}:master-development
   args: [ "bash", "-c", "${{ inputs.command }}" ]
 inputs:
   command:
     description: 'command to execute inside the Kólga container, in a bash shell'
     default: ''
+  container_registry_repo:

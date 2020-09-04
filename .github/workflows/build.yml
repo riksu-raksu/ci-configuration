@@ -29,21 +29,25 @@ jobs:
         uses: ./.github/actions/container
         with:
           command: 'make style-tests'
+          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
         if: ${{ always() }}
       - name: typing tests
         uses: ./.github/actions/container
         with:
           command: 'make typing-tests'
+          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
         if: ${{ always() }}
       - name: package tests
         uses: ./.github/actions/container
         with:
           command: 'make package-tests'
+          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
         if: ${{ always() }}
       - name: doc tests
         uses: ./.github/actions/container
         with:
           command: 'make docs'
+          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
         if: ${{ always() }}
       - name: other tests
         run: |
