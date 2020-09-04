@@ -254,8 +254,6 @@ class Docker:
 
         build_command.append(f"{self.docker_context.absolute()}")
 
-        print(f"BUILD COMMAND IS {build_command}")
-
         result = run_os_command(build_command, shell=False)
 
         if result.return_code:
