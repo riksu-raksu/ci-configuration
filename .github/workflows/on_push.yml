@@ -35,6 +35,7 @@ jobs:
           export
           env > ./.docker-env
           ls -la /home/runner/work/_temp
+          ls -la /home/runner/work/_temp/_github_workflow
           docker run --env-file .docker-env --workdir /github/workspace --rm -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "$GITHUB_WORKSPACE":"/github/workspace" $BUILD_HOST_IMAGE 'bash' '-c' './devops create_images && export BUILT_IMAGE=$(./devops docker_test_image) && echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE"'
 #      - name: use Kólga to build Kólga
 #        id: build
