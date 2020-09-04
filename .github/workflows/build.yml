@@ -22,7 +22,7 @@ jobs:
           username: azure-registry-user
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       - name: pull Kólga Docker image
-        run: docker pull docker.anders.fi/devops/azure-kolga-demo:master-development
+        run: echo $CONTAINER_REGISTRY && docker pull $CONTAINER_REGISTRY/devops/azure-kolga-demo:master-development
       - name: build Kólga
         uses: ./.github/actions/build
       - name: style tests
