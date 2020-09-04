@@ -9,7 +9,7 @@ env:
   CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
   PROJECT_NAME: ${{ github.repository }}
   DOCKER_IMAGE_NAME: ci-configuration
-  BUILD_HOST_IMAGE: docker.anders.fi/anders/ci-configuration:v3
+  BUILD_HOST_IMAGE: docker.anders.fi/devops/azure-kolga-demo:master-development
 
 
 jobs:
