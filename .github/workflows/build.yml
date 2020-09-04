@@ -24,11 +24,12 @@ jobs:
       - name: pull Kólga Docker image
         run: docker pull $CONTAINER_REGISTRY_REPO:master-development
       - name: build Kólga
-        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "cat ./devops"
-#        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "./devops create_images && export BUILT_IMAGE=$(./devops docker_test_image) && echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE""
+        uses: ./.github/actions/build
       - name: style tests
         run: |
           echo $BUILT_DOCKER_TEST_IMAGE
+          docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "echo $BUILT_DOCKER_TEST_IMAGE"
+          docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make style-tests"
         if: ${{ always() }}
       - name: typing tests
         run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make typing-tests"
