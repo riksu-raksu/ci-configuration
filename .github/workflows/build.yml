@@ -26,30 +26,18 @@ jobs:
       - name: build Kólga
         uses: ./.github/actions/build
       - name: style tests
-        uses: ./.github/actions/container
-        with:
-          command: 'make style-tests'
-          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
+        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make style-tests"
         if: ${{ always() }}
       - name: typing tests
-        uses: ./.github/actions/container
-        with:
-          command: 'make typing-tests'
-          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
+        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make typing-tests"
         if: ${{ always() }}
       - name: package tests
-        uses: ./.github/actions/container
-        with:
-          command: 'make package-tests'
-          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
+        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make package-tests"
         if: ${{ always() }}
       - name: doc tests
-        uses: ./.github/actions/container
-        with:
-          command: 'make docs'
-          container_registry_repo: ${{ env.CONTAINER_REGISTRY_REPO }}
+        run: docker run $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "make docs"
         if: ${{ always() }}
-      - name: other tests
+      - name: functional tests
         run: |
           sudo chown $(whoami) /etc/hosts && echo 127.0.0.1 docker-registry >> /etc/hosts
           make test
