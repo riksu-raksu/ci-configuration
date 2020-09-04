@@ -4,12 +4,17 @@ on: [push]
 
 env:
   CONTAINER_REGISTRY: docker.anders.fi
-  CONTAINER_REGISTRY_REPO: docker.anders.fi/anders
+  CONTAINER_REGISTRY_REPO: docker.anders.fi/devops/azure-kolga-demo
   CONTAINER_REGISTRY_USER: azure-registry-user
   CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-  DOCKER_IMAGE_NAME: ci-configuration
-  DOCKER_IMAGE_TAG: v3
-  TEST_VARIABLE: $CONTAINER_REGISTRY/anders
+  DOCKER_IMAGE_NAME: kolga.github.riku
+#  CONTAINER_REGISTRY: docker.anders.fi
+#  CONTAINER_REGISTRY_REPO: docker.anders.fi/anders/ci-configuration
+#  CONTAINER_REGISTRY_USER: azure-registry-user
+#  CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+#  DOCKER_IMAGE_NAME: ci-configuration
+#  DOCKER_IMAGE_TAG: v3
+#  TEST_VARIABLE: $CONTAINER_REGISTRY/anders
 
 jobs:
   on_push:
@@ -23,20 +28,17 @@ jobs:
           registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-      - name: construct Kólga image name
-        run: echo "::set-env name=HOST_IMAGE::$CONTAINER_REGISTRY_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
+#      - name: construct Kólga image name
+#        run: echo "::set-env name=HOST_IMAGE::$CONTAINER_REGISTRY_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
       - name: pull Kólga Docker image
-        run: |
-          echo $TEST_VARIABLE
-          echo $HOST_IMAGE
-          docker pull $HOST_IMAGE
+        run: docker pull $CONTAINER_REGISTRY_REPO:master-development
       - name: use Kólga to build Kólga
         id: build
         uses: ./.github/actions/build
       - name: the real build
         run: |
           env > ./.docker-env
-          docker run --env-file .docker-env $CONTAINER_REGISTRY_REPO:master-development /bin/bash -c "export && ./devops create_images"
+          docker run --env-file .docker-env $HOST_IMAGE /bin/bash -c "export && ./devops create_images"
           export BUILT_IMAGE=$(./devops docker_test_image)
           echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE"'
       - name: style tests
