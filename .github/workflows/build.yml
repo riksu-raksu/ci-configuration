@@ -25,6 +25,8 @@ jobs:
         run: docker pull $CONTAINER_REGISTRY_REPO:master-development
       - name: build Kólga
         uses: ./.github/actions/build
+      - name: why does this not work?
+        run: docker run docker://docker.anders.fi/devops/azure-kolga-demo:master-development /bin/bash -c "./devops create_images"
       - name: style tests
         run: |
           docker run $BUILT_DOCKER_TEST_IMAGE /bin/bash -c "make style-tests"
