@@ -24,7 +24,7 @@ jobs:
           username: ${{ env.CONTAINER_REGISTRY_USER }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       - name: construct Kólga image name
-        run: echo "::set-env name=HOST_IMAGE::$CONTAINER_REGISTRY_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"'
+        run: echo "::set-env name=HOST_IMAGE::$CONTAINER_REGISTRY_REPO/$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
       - name: pull Kólga Docker image
         run: |
           echo $TEST_VARIABLE
