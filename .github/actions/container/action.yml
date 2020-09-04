@@ -8,3 +8,5 @@ inputs:
     description: 'command to execute inside the Kólga container, in a bash shell'
     default: ''
   container_registry_repo:
+    description: 'test'
+    default: ''
