@@ -191,7 +191,7 @@ class Settings:
         self.supported_cis: List[Any] = [
             GitLabMapper(),
             AzurePipelinesMapper(),
-            GitHubActionsMapper()
+            GitHubActionsMapper(),
         ]
         self._set_ci_environment()
         setattr(self, PROJECT_NAME_VAR, self._get_project_name())

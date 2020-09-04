@@ -4,4 +4,4 @@ set -e
 
 flake8
 isort -c
-black . --diff
+black . --check
