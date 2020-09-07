@@ -34,7 +34,7 @@ jobs:
         run: |
           export
           env > ./.docker-env
-          docker run --name $GITHUB_RUN_ID --env-file .docker-env --workdir /github/workspace --rm -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "$PWD":"/github/workspace" -i $BUILD_HOST_IMAGE bash
+          docker run --name $GITHUB_RUN_ID --env-file .docker-env --workdir /github/workspace --rm -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "$PWD":"/github/workspace" $BUILD_HOST_IMAGE
           docker exec $GITHUB_RUN_ID ./devops create_images
           docker exec $GITHUB_RUN_ID export BUILT_IMAGE=$(./devops docker_test_image)
           docker exec $GITHUB_RUN_ID echo "::set-env name=BUILT_DOCKER_TEST_IMAGE::$BUILT_IMAGE"'
