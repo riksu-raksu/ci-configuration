@@ -4,7 +4,7 @@ on: [push]
 
 env:
   CONTAINER_REGISTRY: docker.anders.fi
-  CONTAINER_REGISTRY_REPO: docker.anders.fi/devops/azure-kolga-demo
+  CONTAINER_REGISTRY_REPO: docker.anders.fi/anders/ci-configuration
   CONTAINER_REGISTRY_USER: azure-registry-user
   CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
   PROJECT_NAME: ${{ github.repository }}
